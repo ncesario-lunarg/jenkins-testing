@@ -6,10 +6,6 @@ pipeline {
         githubPush()
     }
 
-	environment {
-        GITHUB_TOKEN = credentials('GITHUB_TOKEN')
-    }
-
     stages {
         stage('Build') {
             steps {
