@@ -1,15 +1,11 @@
 pipeline {
     agent any
 
-    triggers {
-        // Trigger on GitHub PR events via webhook
-        githubPush()
-    }
-
     stages {
         stage('Build') {
             steps {
                 sh 'echo "Hello world!"'
+                sh 'echo "From PR2"'
             }
         }
 
