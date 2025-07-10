@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     triggers {
-		//githubPush()
         pollSCM('H/5 * * * *')
     }
 
@@ -10,16 +9,17 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "Hello world!"'
+				sh 'echo "See if this triggers automatically"'
             }
         }
     }
 
     post {
-        success {
+		success {
 			publishChecks()
-        }
-        failure {
+		}
+		failure {
 			publishChecks()
-        }
+		}
     }
 }
