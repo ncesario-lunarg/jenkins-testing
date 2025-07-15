@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     triggers {
-        githubPush()
+		//githubPush()
+        pollSCM('H/5 * * * *')
     }
 
     stages {
@@ -11,23 +12,14 @@ pipeline {
                 sh 'echo "Hello world!"'
             }
         }
-
-        stage('Notify - Success') {
-            when {
-                expression { currentBuild.currentResult == 'SUCCESS' }
-            }
-            steps {
-				publishChecks(name: 'success')
-            }
-        }
     }
 
     post {
-        failure {
-			publishChecks(name: 'failure')
+        success {
+			publishChecks()
         }
-        unstable {
-			publishChecks(name: 'unstable')
+        failure {
+			publishChecks()
         }
     }
 }
