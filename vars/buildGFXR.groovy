@@ -13,32 +13,6 @@ def envSep() {
     return isUnix() ? ':' : ';'
 }
 
-def cmd(String cmdStr) {
-	if (isUnix()) {
-		sh cmdStr
-	} else {
-		powershell cmdStr
-	}
-}
-
-def gitCheckout(String url, String branch, String d) {
-   dir (d) {
-       checkout scmGit(
-          branches: [[name: branch]],
-          userRemoteConfigs: [[url: url]],
-          extensions: [
-                cloneOption(noTags: true),
-                cloneOption(shallow: true),
-                submodule(depth: 1, recursiveSubmodules: true)
-          ]
-       )
-   }
-}
-
-def getStashName(String platform, String type, String bits) {
-  return "${platform}-build-${type}-${bits}-artifacts"
-}
-
 def pathJoin(String[] path_comps) {
     return path_comps.join(sep())
 }
